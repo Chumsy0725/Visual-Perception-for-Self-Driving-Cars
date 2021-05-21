@@ -132,7 +132,7 @@ p_left, p_right = files_management.get_projection_matrices()
 #print("p_left \n", p_left)
 #print("\np_right \n", p_right)
 
-###  Computing Disparity ###
+#############  Computing Disparity ############################################
 
 
 # Compute the disparity map using the fuction above
@@ -146,7 +146,7 @@ plt.savefig('Disparity map.png')
 plt.imshow(disp_left)
 
 
-### Decomposing the Projection Matrix ###
+############# Decomposing the Projection Matrix ###############################
 
 # Decompose each matrix
 k_left, r_left, t_left = decompose_projection_matrix(p_left)
@@ -160,9 +160,7 @@ k_right, r_right, t_right = decompose_projection_matrix(p_right)
 #print("\nr_right \n", r_right)
 #print("\nt_right \n", t_right)
 
-### Depth Map Genertion ###
-
-
+############ Depth Map Genertion ##############################################
 
 # Get the depth map by calling the above function
 depth_map_left = calc_depth_map(disp_left, k_left, t_left, t_right)
@@ -175,7 +173,7 @@ plt.axis('off')
 plt.imshow(depth_map_left, cmap='flag')
 
 
-### Distance to Collision ###
+############# Distance to Collision ##########################################
 
 # Get the image of the obstacle
 obstacle_image = files_management.get_obstacle_image()
@@ -186,8 +184,6 @@ plt.axis('off')
 plt.title("Obstacle Image")
 plt.imshow(obstacle_image)
 plt.savefig("obstacle template.png")
-
-    
 
 # Gather the cross correlation map and the obstacle location in the image
 cross_corr_map, obstacle_location = locate_obstacle_in_image(img_left, obstacle_image)
@@ -200,7 +196,7 @@ plt.text(750,1000, 'Obstacle Location:'+str(obstacle_location), fontsize =15)
 plt.savefig("Crosscorelation map.png")
 
 
-# Use the developed nearest point function to get the closest point depth and obstacle bounding box
+# nearest point function to get the closest point depth and obstacle bounding box
 closest_point_depth, obstacle_bbox = calculate_nearest_point(depth_map_left, obstacle_location, obstacle_image)
 
 # Display the image with the bounding box displayed
@@ -211,3 +207,13 @@ plt.axis('off')
 plt.text(750,1000, 'closest_point_depth:'+str(closest_point_depth), fontsize =15)
 plt.savefig("obstacle.png")
 plt.show()
+
+
+
+
+
+
+
+"""
+Reference : Visual Perception for Self Driving Cars by University of Toronto on Coursera 
+"""
