@@ -112,7 +112,7 @@ img_left = files_management.read_left_image()
 img_right = files_management.read_right_image()
 
 # Use matplotlib to display the two images
-_, image_cells = plt.subplots(1, 2, figsize=(16, 16))
+_, image_cells = plt.subplots(1, 2, figsize=(20, 20))
 image_cells[0].imshow(img_left)
 image_cells[0].set_title('left image')
 image_cells[1].imshow(img_right)
