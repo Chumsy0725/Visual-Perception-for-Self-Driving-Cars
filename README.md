@@ -20,7 +20,7 @@ The depth of a stereo scene is estimated using ,
 A disparity map from the perspective of the left camera is generated from the stereo pair
 
 <p align="center">
-  <img width="900" height="600" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (1).png">
+  <img width="600" height="400" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (1).png">
 </p>
 
 #### Decompose the projection matrices
@@ -51,7 +51,7 @@ After carrying out the matrix multiplication, the homogeneous component w_c will
 
 
 <p align="center">
-  <img width="900" height="600" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (2).png">
+  <img width="600" height="400" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (2).png">
 </p>
 
 ### Calculating Distance to an Obstacle
@@ -60,13 +60,13 @@ While we may have a map of the depths of each pixel in the scene, our system doe
 
 
 <p align="center">
-  <img width="450" height="300" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (3).png">
+  <img width="300" height="200" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (3).png">
 </p>
 
 The cross corelation is used to find the location of the obstacle template in the image and extract the position of the obstacle. The cross correlation heatmap and the corresponding point of the obstacle can be seen here.
 
 <p align="center">
-  <img width="900" height="600" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (4).png">
+  <img width="600" height="400" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (4).png">
 </p>
 
 once the location of the obstacle is obtained(bounding box reigon) we can determine the minimum distance using the depth map produced!
