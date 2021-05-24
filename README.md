@@ -7,7 +7,7 @@ In this Stereo Depth an Image pair obtained by a stereo camera pair in the CARLA
 - Find the Distance to collision with an obstacle
 
 <p align="center">
-  <img width="1200" height="400" src="Stereo_Depth/Plots/Figure 2021-05-22 002611.png">
+  <img width="1000" height="1200" src="Stereo_Depth/Plots/Figure 2021-05-22 002611.png">
 </p>
 
 ### Estimating Depth
