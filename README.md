@@ -20,7 +20,7 @@ The depth of a stereo scene is estimated using ,
 A disparity map from the perspective of the left camera is generated from the stereo pair
 
 <p align="center">
-  <img width="800" height="300" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (1).png">
+  <img width="600" height="400" src="Stereo_Depth/Plots/Figure 2021-05-22 002611 (1).png">
 </p>
 
 #### Decompose the projection matrices
