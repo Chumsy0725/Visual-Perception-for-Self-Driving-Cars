@@ -27,6 +27,16 @@ Then the extracted features in each image is matched with the features from the 
 </p>
 
 #### Trajectory Estimation
+Camera motion estimation from pair of images is done using Essential Matrix Decomposition. We can use Perspective n Ponint Algorithm for this purpose as well. RANSAC was adopted for outlier rejection.
+<p align="center">
+  <img width="600" height="500" src="Visual Odometry/plots/Camera.png">
+</p>
+
+<p align="center">
+  <img width="600" height="500" src="Visual Odometry/plots/traj.png">
+</p>
+
+
 ## Aplying Stereo Depth
 
 In this Stereo Depth, an Image pair obtained by a stereo camera pair in the CARLA Simulator enviroment is used to,
