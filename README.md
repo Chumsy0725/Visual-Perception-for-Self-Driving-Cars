@@ -20,7 +20,7 @@ For feature extraction you may use different extractors and descriptors such as 
 
 #### Fature Matching
 
-Then the extracted features in each image is matched with the features from the subsequent frame. we can use Brute force matcher of a FLANN based matcher for this purpose. Feature matches are filtered using a threshold on distance between the matches. Matching done betwen two adjacent frames are shown below.
+Then the extracted features in each image is matched with the features from the subsequent frame. we can use Brute force matcher of a FLANN based matcher for this purpose. Feature matches are filtered using a threshold on distance between the matches. Matching done betwen two adjacent frames using FLANN based matcher is shown below.
 
 <p align="center">
   <img width="1400" height="500" src="Visual Odometry/plots/matches.png">
