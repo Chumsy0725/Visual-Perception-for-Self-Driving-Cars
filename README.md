@@ -1,8 +1,15 @@
 # Visual-Perception-for-Self-Driving-Cars
 
+## Visual Odometry
+In the Visual Odometry directory you may find the images taken with a monocular camera set up on the vehicle in the CARLA simulator enviroment. There are 52 data frames, each frame contains RGB images, Grayscale version of that image and a Depth Map. Those frames are
+- Processed to extract the features
+- Extracted features are used find matches between the features in different photographs
+- Use the found matches to estimate the camera motion between subsequent photographs.
+- Finally, Estimated camera motion is used to build the vehicle trajectory
+
 ## Aplying Stereo Depth
 
-In this Stereo Depth an Image pair obtained by a stereo camera pair in the CARLA Simulator enviroment is used to,
+In this Stereo Depth, an Image pair obtained by a stereo camera pair in the CARLA Simulator enviroment is used to,
 - Obtain depth details from a pair of stereo images and their respective Projection matrix
 - Find the Distance to collision with an obstacle
 
