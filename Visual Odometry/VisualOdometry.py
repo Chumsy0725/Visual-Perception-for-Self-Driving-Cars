@@ -221,7 +221,7 @@ def estimate_motion(match, kp1, kp2, k, depth1=None):
         p2x, p2y = kp2[train_idx].pt
         image2_points.append([p2x, p2y])
 
-    E, mask = cv2.findEssentialMat(np.array(image1_points), np.array(image2_points), k)
+    E, mask = cv2.findEssentialMat(np.array(image1_points), np.array(image2_points), k, method = cv.RANSAC, prob = 0.9)
 
     retval, rmat, tvec, mask = cv2.recoverPose(E, np.array(image1_points), np.array(image2_points), k)
 
