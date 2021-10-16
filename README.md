@@ -7,6 +7,26 @@ In the Visual Odometry directory you may find the images taken with a monocular 
 - Use the found matches to estimate the camera motion between subsequent photographs.
 - Finally, Estimated camera motion is used to build the vehicle trajectory
 
+<p align="center">
+  <img width="1200" height="300" src="Visual Odometry/plots/data.png">
+</p>
+
+#### Feature Extraction
+For feature extraction you may use different extractors and descriptors such as SIFT, ORB, SURF etc. The obtained features in an arbitary frame is displayed below
+
+<p align="center">
+  <img width="600" height="500" src="Visual Odometry/plots/features.png">
+</p>
+
+#### Fature Matching
+
+Then the extracted features in each image is matched with the features from the subsequent frame. we can use Brute force matcher of a FLANN based matcher for this purpose. Feature matches are filtered using a threshold on distance between the matches. Matching done betwen two adjacent frames are shown below.
+
+<p align="center">
+  <img width="1400" height="500" src="Visual Odometry/plots/matches.png">
+</p>
+
+#### Trajectory Estimation
 ## Aplying Stereo Depth
 
 In this Stereo Depth, an Image pair obtained by a stereo camera pair in the CARLA Simulator enviroment is used to,
