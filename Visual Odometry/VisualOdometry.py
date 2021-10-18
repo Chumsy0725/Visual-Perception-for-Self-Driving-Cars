@@ -263,7 +263,7 @@ def estimate_trajectory(estimate_motion, matches, kp_list, k, depth_maps=[]):
 
 
 if __name__ == '__main__':
-    # Data visualisation and Loading
+    ############################# Data visualisation and Loading #############################################
     dataset_handler = DatasetHandler()
     visualize_data()
     print('Camera Calibration Matrix: \n')
@@ -271,11 +271,11 @@ if __name__ == '__main__':
     print(k)
     print("Number of frames: ", dataset_handler.num_frames)
 
-    # Feature Extraction
+    ################################ Feature Extraction #####################################################
     images = dataset_handler.images
     kp_list, des_list = extract_features_dataset(images)
 
-    # Feature Matching
+    ################################ Feature Matching #######################################################
     matches()  # For visualize matches between two frames
 
     matches = match_features_dataset(des_list, match_features)
@@ -283,7 +283,7 @@ if __name__ == '__main__':
     filtered_matches = filter_matches_dataset(filter_matches_distance, matches, dist_threshold)
     matches = filtered_matches
 
-    # Trajectory Estimation
+    ################################ Trajectory Estimation #################################################
     motion(30, matches, kp_list)  # Visualize the motion between two adjacent frames
     depth_maps = dataset_handler.depth_maps
     trajectory = estimate_trajectory(estimate_motion, matches, kp_list, k, depth_maps=depth_maps)
