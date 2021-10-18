@@ -80,7 +80,11 @@ Finally, lanes are extrapolated to start at the beginning of the road, and end a
  <p align="center">
   <img width="360" height="300" src="Baseline Enviroment Perception/Plots/MD.png">
 </p>
+
+
 ## Visual Odometry
+
+
 In the Visual Odometry directory you may find the images taken with a monocular camera set up on the vehicle in the CARLA simulator enviroment. There are 52 data frames, each frame contains RGB images, Grayscale version of that image and a Depth Map. Those frames are
 - Processed to extract the features
 - Extracted features are used find matches between the features in different photographs
