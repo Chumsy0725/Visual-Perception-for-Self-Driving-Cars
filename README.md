@@ -1,5 +1,85 @@
 # Visual-Perception-for-Self-Driving-Cars
 
+## Baseline Enviroment Perception 
+
+In Baseline Enviroment Perception, a set of Images, Depth Maps, outputs of a semantic segmentation model and object detection model gathered in the CARLA simulator enviroment is used to,
+- Estimate drivable estimation in 3D using the output of a semantic segmentation model
+- Estimate lanes using the output of a semantic segmentation model
+- Filter out the errors in the output of high recall, low precision object detection model using semantic segmentation output
+- Finally, to estimate the distance to obstacles using the filtered 2D object detection outputs.
+
+<p align="center">
+  <img width="1600" height="600" src="Baseline Enviroment Perception/Plots/data.png">
+</p>
+
+The output segmentation image contains mapping indices from every pixel to a road scene category as follows
+
+|Category |Mapping Index| Visualization Color|
+| --- | --- | --- |
+| Background | 0 | Black |
+| Buildings | 1 | Red |
+| Pedestrians | 4 | Teal |
+| Poles | 5 | White |
+| Lane Markings | 6| Purple |
+| Roads | 7 | Blue |
+| Side Walks| 8 | Yellow |
+| Vehicles| 10 | Green |
+
+<p align="center">
+  <img width="1200" height="300" src="Baseline Enviroment Perception/Plots/SG.png">
+</p>
+
+#### Drivable Space Estimation
+
+Firstmost x,y,z coordinated of every pixel is estimated using the depth maps and the intrinsic parameters found in the camera calibration matrix. 
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\bg_black&space;\large&space;z&space;=&space;depth&space;\newline&space;\newline&space;x&space;=&space;\frac{\left&space;(&space;u-c_{u}&space;\right&space;)*depth}{f}&space;\newline&space;\newline&space;x&space;=&space;\frac{\left&space;(&space;v-c_{v}&space;\right&space;)*depth}{f}&space;\newline&space;\newline&space;k&space;=&space;\begin{pmatrix}&space;f&space;&&space;0&space;&&space;u_c&space;\\&space;0&space;&&space;f&space;&&space;u_v&space;\\&space;0&&space;0&space;&&space;1&space;\end{pmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\bg_black&space;\large&space;z&space;=&space;depth&space;\newline&space;\newline&space;x&space;=&space;\frac{\left&space;(&space;u-c_{u}&space;\right&space;)*depth}{f}&space;\newline&space;\newline&space;x&space;=&space;\frac{\left&space;(&space;v-c_{v}&space;\right&space;)*depth}{f}&space;\newline&space;\newline&space;k&space;=&space;\begin{pmatrix}&space;f&space;&&space;0&space;&&space;u_c&space;\\&space;0&space;&&space;f&space;&&space;u_v&space;\\&space;0&&space;0&space;&&space;1&space;\end{pmatrix}" title="\large z = depth \newline \newline x = \frac{\left ( u-c_{u} \right )*depth}{f} \newline \newline x = \frac{\left ( v-c_{v} \right )*depth}{f} \newline \newline k = \begin{pmatrix} f & 0 & u_c \\ 0 & f & u_v \\ 0& 0 & 1 \end{pmatrix}" /></a>
+ </p>
+ 
+ For an autonomous agent drivable space includes any space that the agent is physically capable of traversing in 3D. Estimating the drivable space is equivalent to estimating pixels belonging to the ground plane in the scene. RANSAC is used to estimate the ground plane in the 3D camera coordinate frame from the x,y, and z coordinates estimated from depth maps. As the first step, semantic segmentation output is used to extract the relevant pixels belonging to the class you want consider as ground.
+ 
+ <p align="center">
+  <img width="500" height="300" src="Baseline Enviroment Perception/Plots/RM.png">
+</p>
+
+Then the extracted x, y, and z coordinates of pixels belonging to the road is used to estimate the ground plane along with RANSAC for robust outlier rejection.
+
+ <p align="center">
+  <img width="500" height="300" src="Baseline Enviroment Perception/Plots/GM.png">
+</p>
+
+#### Lane Estimation
+
+The output of semantic segmentation is used to estimate the lane boundaries of the current lane the agent is using. This task can be separated to two subtasks, lane line estimation, and post-processing through horizontal line filtering and similar line merging.
+
+As the first step to estimate lane proposals, an image containing the semantic segmentation pixels belonging to categories relevant to the lane boundaries was craeted similar to what was done previously for the road plane. Then edge detction was carried out using the Canny Edge Detector on the derived lane boundry image followed by line estimation using Hough Transform on the output of edge detection.
+
+ <p align="center">
+  <img width="360" height="300" src="Baseline Enviroment Perception/Plots/LP.png">
+</p>
+
+The second step is to perform the estimation of the current lane boundary is to merge redundant lines, and filter out any horizontal lines apparent in the image. Merging redundant lines can be solved through grouping lines with similar slope and intercept. Horizontal lines can be filtered out through slope thresholding.
+ <p align="center">
+  <img width="360" height="300" src="Baseline Enviroment Perception/Plots/SP.png">
+</p>
+
+Finally, lanes are extrapolated to start at the beginning of the road, and end at the end of the road and to  determine the lane markings belong to the current lane, the closest to the lane midpoints from extrapolated lines are selected
+ <p align="center">
+  <img width="360" height="300" src="Baseline Enviroment Perception/Plots/ML.png">
+</p>
+
+#### Estimating Minimum Distance to Obstacles
+ <p align="center">
+  <img width="1000" height="200" src="Baseline Enviroment Perception/Plots/OD.png">
+</p>
+2D object detection output is used to determine the minimum distance to impact with obstacles in the scene. However, the 2D detections are from a high recall, low precision 2D object detector. To overcome this problem, the output of the semantic segmentation network is used to eliminate unreliable detections.Then the minimum distance to impact is computed using the remaining bounding boxes and the depth maps.
+ <p align="center">
+  <img width="360" height="300" src="Baseline Enviroment Perception/Plots/FD.png">
+</p>
+ <p align="center">
+  <img width="360" height="300" src="Baseline Enviroment Perception/Plots/MD.png">
+</p>
 ## Visual Odometry
 In the Visual Odometry directory you may find the images taken with a monocular camera set up on the vehicle in the CARLA simulator enviroment. There are 52 data frames, each frame contains RGB images, Grayscale version of that image and a Depth Map. Those frames are
 - Processed to extract the features
@@ -39,7 +119,7 @@ Camera motion estimation from pair of images is done using Essential Matrix Deco
 
 ## Aplying Stereo Depth
 
-In this Stereo Depth, an Image pair obtained by a stereo camera pair in the CARLA Simulator enviroment is used to,
+In the Stereo Depth, an Image pair obtained by a stereo camera pair in the CARLA Simulator enviroment is used to,
 - Obtain depth details from a pair of stereo images and their respective Projection matrix
 - Find the Distance to collision with an obstacle
 
